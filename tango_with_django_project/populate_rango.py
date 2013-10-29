@@ -8,7 +8,7 @@ from rango.models import Category, Page
 
 
 def populate():
-    python_cat = add_cat('Python', views=64, likes=32)
+    python_cat = add_cat('Python')
 
     add_page(cat=python_cat,
         title="Official Python Tutorial",
