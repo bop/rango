@@ -1,0 +1,19 @@
+<!DOCTYPE html>
+{% load media %}
+
+<html>
+
+    <head>
+        <title>Rango</title>
+    </head>
+
+    <body>
+        <h1>Rango says...</h1>
+        hello world! <strong> youha</strong>
+	<br />
+	<a href="/rango">Index</a>
+	<br />
+	<img src="{% media "rango.jpg" %}" alt="Picture of Rango" />
+    </body>
+
+</html>
