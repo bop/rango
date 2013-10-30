@@ -1,19 +1,29 @@
 <!DOCTYPE html>
 {% load static %}
 
-<html>
+<html lang="fr">
+  <head>
+    <meta charset="UTF-8" />
+    <title>Rango</title>
+  </head>
 
-    <head>
-        <title>Rango</title>
-    </head>
-
-    <body>
-        <h1>Rango says...</h1>
-        hello world! <strong>{{ boldmessage }}</strong>
-	<br />
-	<a href="/rango/about">À propos de moi</a>
-	<br />
-	<img src="{% static "rango.png" %}" alt="Picture of Rango" />
-    </body>
+  <body>
+    <h1>Rango says...</h1>
+    <p>hello world!</p> 
+    <br />
+    {% if categories %}
+      <ul>
+	{% for category in categories %}
+	  <li><a href="/rango/category/{{ category.url }}">{{ category.name }}</a> {{ category.name }}</li>
+	{% endfor %}  
+      </ul>
+    {% else %}
+      <em>Pas de catégorie présente</em>
+    {% endif %}
+    <br />
+    <a href="/rango/about">À propos de moi</a>
+    <br />
+    <img src="{% static "rango.png" %}" alt="Picture of Rango" />
+  </body>
 
 </html>
