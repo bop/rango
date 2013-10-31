@@ -2,6 +2,7 @@ from django.template import RequestContext
 # -*- coding: utf-8 -*-
 from django.shortcuts import render_to_response
 from .models import Category, Page
+from .forms import CategoryForm
 
 
 def index(request):
@@ -32,3 +33,18 @@ def category(request, category_name_url):
         pass
     
     return render_to_response('rango/category.html', context_dict, context)
+
+
+def add_category(request):
+    context = RequestContext(request)
+    if request.method == 'POST':
+        form = CategoryForm(request.POST)
+        if form.is_valid():
+            form.save(commit=True)
+            return index(request)
+        else:
+            print form.errors
+    else:
+        form = CategoryForm()
+
+    return render_to_response('rango/add_category.html', {'form': form}, context)
