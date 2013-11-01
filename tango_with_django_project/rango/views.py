@@ -2,8 +2,31 @@ from django.template import RequestContext
 # -*- coding: utf-8 -*-
 from django.shortcuts import render_to_response
 from .models import Category, Page
-from .forms import CategoryForm
+from .forms import CategoryForm, PageForm
 
+
+
+def encode_url(str):
+    return str.replace(' ', '_')
+
+def decode_url(str):
+    return str.replace('_', ' ')
+
+def get_category_list(max_results=0, starts_with=''):
+    cat_list = []
+    if starts_with:
+        cat_list = Category.objects.filter(name__startswith=starts_with)
+    else:
+        cat_list = Category.objects.all()
+
+    if max_results > 0:
+        if (len(cat_list) > max_results):
+            cat_list = cat_list[:max_results]
+
+    for cat in cat_list:
+        cat.url = encode_url(cat.name)
+    
+    return cat_list
 
 def index(request):
     context = RequestContext(request)
@@ -20,18 +43,44 @@ def about(request):
 
 
 def category(request, category_name_url):
+    # Request our context
     context = RequestContext(request)
-    category_name = category_name_url.replace('_', ' ')
-    context_dict = {'category_name': category_name}
+
+    # Change underscores in the category name to spaces.
+    # URL's don't handle spaces well, so we encode them as underscores.
+    category_name = decode_url(category_name_url)
+
+    # Build up the dictionary we will use as out template context dictionary.
+    context_dict = {'category_name': category_name, 'category_name_url': category_name_url}
+
+    cat_list = get_category_list()
+    context_dict['cat_list'] = cat_list
 
     try:
-        category = Category.objects.get(name=category_name)
-        pages = Page.objects.filter(category=category)
-        context_dict['pages'] = pages
+        # Find the category with the given name.
+        # Raises an exception if the category doesn't exist.
+        # We also do a case insensitive match.
+        category = Category.objects.get(name__iexact=category_name)
         context_dict['category'] = category
+        # Retrieve all the associated pages.
+        # Note that filter returns >= 1 model instance.
+        pages = Page.objects.filter(category=category).order_by('-views')
+
+        # Adds our results list to the template context under name pages.
+        context_dict['pages'] = pages
     except Category.DoesNotExist:
+        # We get here if the category does not exist.
+        # Will trigger the template to display the 'no category' message.
         pass
-    
+
+    if request.method == 'POST':
+        query = request.POST.get('query')
+        if query:
+            query = query.strip()
+            result_list = run_query(query)
+            context_dict['result_list'] = result_list
+
+    # Go render the response and return it to the client.
     return render_to_response('rango/category.html', context_dict, context)
 
 
@@ -48,3 +97,27 @@ def add_category(request):
         form = CategoryForm()
 
     return render_to_response('rango/add_category.html', {'form': form}, context)
+
+
+def add_page(request, category_name_url):
+    context = RequestContext(request)
+    
+    category_name = decode_url(category_name_url)
+    if request.method == 'POST':
+        form = PageForm(request.POST)
+
+        if form.is_valid():
+            page = form.save(commit=False)
+            cat = Category.objects.get(name=category_name)
+            page.category = cat
+
+            page.views = 0
+
+            page.save()
+
+            return category(request, category_name)
+        else:
+            print form.errors
+    else:
+        form = PageForm()
+        return render_to_response('rango/add_page.html', {'category_name_url': category_name_url, 'category_name': category_name, 'form': form}, context)
