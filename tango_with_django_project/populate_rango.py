@@ -68,5 +68,5 @@ def add_cat(name, views=64, likes=32):
 
 # Start execution here!
 if __name__ == '__main__':
-    print "Starting Rango population script..." + "\n lancé par " + settings.USER
+    print "Starting Rango population script..." + "\n lancé par " + settings.KEY_USER
     populate()

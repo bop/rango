@@ -1,0 +1,22 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Rango rocks!</title>
+  </head>
+
+  <body>
+    <h1>Register with Rango is fun.</h1>
+    {% if registered %}
+      Rango déclare :<strong> merci de vous être enregistré</strong>!
+      <a href="/rango/">Retour à la page d'accueil.</a><br />
+    {% else %}
+      Rango déclare: <strong> enregistez-vous !</strong>
+      <form method="post" id="user_form" action="/rango/register/" enctype="multipart/form-data">
+	{% csrf_token %}
+	{{ user_form.as_p }}
+	{{ profile_form.as_p }}
+	<input type="submit" name="submit" value="Enregistrement" />
+      </form>
+    {% endif %}
+  </body>
+</html>

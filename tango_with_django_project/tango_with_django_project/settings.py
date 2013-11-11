@@ -11,7 +11,7 @@ ADMINS = (
     ('Baptiste', 'bop@example.com'),
 )
 
-USER = 'bop'
+KEY_USER = 'bop'
 
 MANAGERS = ADMINS
 
@@ -160,3 +160,7 @@ LOGGING = {
         },
     }
 }
+
+
+
+APPEND_SLASH = True

@@ -8,14 +8,20 @@
   </head>
 
   <body>
-    <h1>Rango says...</h1>
-    <p>hello world!</p> 
+    {% if user.is_authenticated %}
+    <h1>Rango says . . . hello {{ user.username }}</h1>
+    {% else %}
+      <h1>Rango says ... </h1>
+      <p>hello world!</p> 
+      {% endif %}
     <br />
     {% if categories %}
       <ul>
 	{% for category in categories %}
 	  <li><a href="/rango/category/{{ category.url }}">{{ category.name }}</a> {{ category.name }}</li>
 	{% endfor %}  
+	<br />
+	<a href="/rango/add_category/">Ajouter une nouvelle catégorie.</a>
       </ul>
     {% else %}
       <em>Pas de catégorie présente</em>
@@ -23,9 +29,11 @@
     <br />
     <a href="/rango/about">À propos de moi</a>
     <br />
-    <a href="/rango/add_category/">Ajouter une nouvelle catégorie.</a>
-    <br />
     <img src="{% static "rango.png" %}" alt="Picture of Rango" />
+    <br />
+    <a href="/rango/register/">Enregistrement Ici</a>
+    <br />
+    <a href="/rango/login/">Login</a>
   </body>
 
 </html>
