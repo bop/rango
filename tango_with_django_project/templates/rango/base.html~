@@ -1,0 +1,13 @@
+<!DOCTYPE html>
+
+<html>
+    <head>
+      <meta charset="UTF-8" />
+      <title>Rango</title>
+    </head>
+
+    <body>
+        <!-- Page specific content goes here -->
+	{% block body_block %}{% endblock %}
+    </body>
+</html>

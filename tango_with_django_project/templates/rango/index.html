@@ -1,45 +1,21 @@
-<!DOCTYPE html>
-{% load static %}
+{% extends 'rango/base.html' %}
 
-<html lang="fr">
-  <head>
-    <meta charset="UTF-8" />
-    <title>Rango</title>
-  </head>
-
-  <body>
-    {% if user.is_authenticated %}
-    <h1>Rango says . . . hello {{ user.username }}</h1>
-    {% else %}
-      <h1>Rango says ... </h1>
-      <p>hello world!</p> 
-      {% endif %}
-    <br />
-    {% if categories %}
-      <ul>
-	{% for category in categories %}
-	  <li><a href="/rango/category/{{ category.url }}">{{ category.name }}</a> {{ category.name }}</li>
-	{% endfor %}  
-      </ul>
-    {% else %}
-      <em>Pas de catégorie présente</em>
-    {% endif %}
-    <br />
-    <a href="/rango/about">À propos de moi</a>
-    <br />
-    {% if user.is_authenticated %}
-      <a href="/rango/restricted/">Staff</a><br />
-      <a href="/rango/logout/">Déconnexion</a><br />
-      <img src="{% static "lpi.png" %}" width="250px"  alt="Picture of Rango" />
-      {% else %}
-    <img src="{% static "rango.png" %}" alt="Picture of Rango" />
-    <br />
-    <a href="/rango/register/">Enregistrement Ici</a>
-    <br />
-    <a href="/rango/login/">Login</a>
-    {% endif %}
-    <br />
-    <a href="/rango/add_category/">Ajouter une nouvelle catégorie.</a>
-  </body>
-
-</html>
+{% block home %}
+{% if user.is_authenticated %}
+  <h1>Rango says . . . hello {{ user.username }}</h1>
+{% else %}
+  <h1>Rango says ... </h1>
+  <p>hello world!</p> 
+{% endif %}
+<br />
+{% if categories %}
+  <ul>
+    {% for category in categories %}
+      <li><a href="/rango/category/{{ category.url }}">{{ category.name }}</a> {{ category.name }}</li>
+    {% endfor %}  
+  </ul>
+{% else %}
+  <em>Pas de catégorie présente</em>
+{% endif %}
+<br />
+{% endblock %}
