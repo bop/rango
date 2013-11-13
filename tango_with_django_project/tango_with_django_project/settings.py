@@ -164,3 +164,7 @@ LOGGING = {
 
 
 APPEND_SLASH = True
+
+
+
+LOGIN_URL = '/rango/login/'

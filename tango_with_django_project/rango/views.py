@@ -3,9 +3,16 @@ from django.template import RequestContext
 from django.shortcuts import render_to_response
 from django.contrib.auth import authenticate, login
 from django.http import HttpResponseRedirect, HttpResponse
+from django.contrib.auth.decorators import login_required
+from django.contrib.auth import logout
 
 from .models import Category, Page
 from .forms import CategoryForm, PageForm, UserForm, UserProfileForm
+
+
+@login_required
+def restricted(request):
+    return HttpResponse("Texte pour utilisateur connecté à Rango.")
 
 
 
@@ -33,7 +40,7 @@ def get_category_list(max_results=0, starts_with=''):
 
 def index(request):
     context = RequestContext(request)
-    category_list = Category.objects.order_by('-likes')[:4]
+    category_list = Category.objects.order_by('-likes')[:12]
     context_dict = {'categories': category_list}
     for category in category_list:
         category.url = category.name.replace(' ', '_')
@@ -178,3 +185,10 @@ def user_login(request):
             return HttpResponse("Le login fourni est invalide.")
     else:
         return render_to_response('rango/login.html', {}, context)
+
+
+
+@login_required
+def user_logout(request):
+    logout(request)
+    return HttpResponseRedirect('/rango/')
