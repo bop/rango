@@ -5,37 +5,82 @@
   <head>
     <meta charset="UTF-8" />
     <title>{% block title %} Rango{% endblock %}</title>
+
+    <link rel="stylesheet" href="http://code.jquery.com/ui/1.10.3/themes/smoothness/jquery-ui.css" />
+    <link rel="stylesheet" href="{% static 'css/bootstrap.css' %}" />
+    <link rel="stylesheet" href="{% static 'css/bootstrap-theme.css' %}" />
+    <link rel="stylesheet" href="{% static 'css/bootstrap-fluid-adj.css' %}" />
+
   </head>
 
   <body>
-    <div id="tango">
-      
-      <!-- Page specific content goes here -->
-      {% block body_block %}{% endblock %}
+
+    <div class="navbar navbar-inverse navbar-fixed-top">
+      <div class="navbar-inner">
+	<div class="container">
+	  <button type="button" class="btn btn-navbar" data-toggle="collapse" data-target=".nav-collapse">
+	    <span class="icon-bar"></span>
+	    <span class="icon-bar"></span>
+	    <span class="icon-bar"></span>
+	  </button>
+	  <a class="brand" href="/rango/">Rango</a>
+
+	  <div class="nav-collapse collapse">
+	    <ul class="nav pull-right">
+	      {% if user.is_authenticated %}
+                <li class="navbar-text">Welcome, {{ user.username }}!</li>
+		<li><a href="/rango/logout/">Logout</a></li>
+              {% else %}
+                <li><a href="/rango/register/">Register</a></li>
+		<li><a href="/rango/login/">Login</a></li>
+              {% endif %}
+	    </ul>
+	    <ul class="nav">
+	      {% if user.is_authenticated %}
+                <li><a href="/rango/restricted/">Restricted</a></li>
+		<li><a href="/rango/add_category/">Add Category</a></li>
+              {% endif %}
+	      <li><a href="/rango/about/">About</a></li>
+	    </ul>
+	  </div>
+	  <!--/.nav-collapse -->
+	  <li><a href="/admin" target="_blank">Admin</a> </li>
+	</div>
+      </div>
     </div>
+
+	  
+	  <!-- Page specific content goes here -->
+	  {% block body_block %}{% endblock %}
+	</div>
+
 
     <div id="rango">
       {% block home %}{% endblock %}
     </div>
-    <hr />
-    <div>
+    <div class="container panel panel-primary">
       <ul>
 	<li><a href="/rango/about">À propos de moi</a></li>
-	<br />
 	{% if user.is_authenticated %}
-	  <li><a href="/rango/restricted/">Staff</a></li><br />
-	  <li><a href="/rango/logout/">Déconnexion</a></li><br />
-	  <img src="{% static "lpi.png" %}" width="250px"  alt="Picture of Rango" />
+	  <img class="img-thumbnail" src="{% static "lpi.png" %}" width="150px"  alt="Picture of Rango" />
+	  <li><a href="/rango/restricted/">Staff</a></li>
+	  <li><a href="/rango/logout/">Déconnexion</a></li>
 	{% else %}
 	  <img src="{% static "rango.png" %}" alt="Picture of Rango" />
-	  <br />
 	  <li><a href="/rango/register/">Enregistrement Ici</a></li>
-	  <br />
 	  <li><a href="/rango/login/">Login</a></li>
 	{% endif %}
-	<br />
 	<li><a href="/rango/add_category/">Ajouter une nouvelle catégorie.</a></li>
+	<li><a href="/"> Retour Accueil</a></li>
       </ul>
     </div>
+    <footer>
+      <div class="container">
+        <p>&copy; 2013 Django avec Xpertise.ch</p>
+      </div>
+    </footer>
+
+    <script src="{% static 'js/jquery-2.0.3.js' %}"></script>
+    <script src="{% static 'js/bootstrap.min.js' %}"></script>
   </body>
 </html>

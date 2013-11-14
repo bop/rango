@@ -1,21 +1,22 @@
 {% extends 'rango/base.html' %}
 
 {% block home %}
-{% if user.is_authenticated %}
-  <h1>Rango says . . . hello {{ user.username }}</h1>
-{% else %}
-  <h1>Rango says ... </h1>
-  <p>hello world!</p> 
-{% endif %}
-<br />
-{% if categories %}
-  <ul>
-    {% for category in categories %}
-      <li><a href="/rango/category/{{ category.url }}">{{ category.name }}</a> {{ category.name }}</li>
-    {% endfor %}  
-  </ul>
-{% else %}
-  <em>Pas de catégorie présente</em>
-{% endif %}
-<br />
+  <div class="container lead">
+    {% if user.is_authenticated %}
+      <h1 class="well">Rango says . . . hello {{ user.username }}</h1>
+    {% else %}
+      <h1 class="well">Rango says ... </h1>
+    <p>hello world!</p> 
+  {% endif %}
+    <br />
+    {% if categories %}
+      <ul>
+	{% for category in categories %}
+	  <li><a href="/rango/category/{{ category.url }}">{{ category.name }}</a> {{ category.name }}</li>
+	{% endfor %}  
+      </ul>
+    {% else %}
+      <em>Pas de catégorie présente</em>
+    {% endif %}
+
 {% endblock %}
