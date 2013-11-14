@@ -7096,3 +7096,8 @@ td.visible-print {
     display: none !important;
   }
 }
+
+
+.errorlist {
+    color: red
+}
