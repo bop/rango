@@ -1,23 +1,23 @@
-{% extends "rango/base.html" %}
+{% extends "rango/forms.html" %}
 
-{% block body_block %}
-  <div class="container">
-    <h1 class="well">Register with Rango is fun.</h1>
-    {% if registered %}
-      Rango déclare :<strong> merci de vous être enregistré</strong>!
+  {% block h1 %}Enregistrement{% endblock %}
+  {% block form %}
+    <div class="jumbotron">
+      {% if registered %}
+	Rango déclare :<strong> merci de vous être enregistré</strong>!
       <a href="/rango/">Retour à la page d'accueil.</a><br />
-{% else %}
-  Rango déclare: <strong></strong>
-  <form method="post" id="user_form" action="/rango/register/" enctype="multipart/form-data" class="well">
-    {% csrf_token %}
-       <h2 class="form-signin-heading"> enregistez-vous !</h2>
-       <div class="row">
-      {{ user_form.as_p }}
-      {{ profile_form.as_p }}
-      <input type="submit" name="submit" value="Enregistrement" class="btn btn-default" />
-      </div>
-   </form>
-{% endif %}
+    {% else %}
+      Rango déclare: <strong></strong>
+      <form method="post" id="user_form" action="/rango/register/" enctype="multipart/form-data" class="well form-signin">
+	{% csrf_token %}
+	<h2 class="form-signin-heading"> enregistez-vous !</h2>
 
-  </div>
-  {% endblock %}
+	{{ user_form.as_p }}
+	{{ profile_form.as_p }}
+	<input type="submit" name="submit" value="Enregistrement" class="btn btn-info btn-sm" />
+
+      </form>
+    </div>
+  {% endif %}
+
+{% endblock %}

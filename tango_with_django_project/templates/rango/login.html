@@ -4,17 +4,18 @@
 
     <div class="container">
     <h1 class="well">Enregistrement à Rango</h1>
-
-    <form method="post" id="login_form" action="/rango/login/" class="well">
+    <div class="jumbotron">
+    <form method="post" id="login_form" action="/rango/login/" class="form-signin">
       {% csrf_token %}
       Username: <input type="text" name="username" value="" size="50" />
       <br />
       Mot de passe: <input type="password" name="password" value="" size="50" />
       <br />
 
-      <input type="submit" value="submit" class="btn btn-default" />
+      <input type="submit" value="submit" class="btn btn-info" />
       
     </form>
+    </div>
     </div>
 
 {% endblock %}

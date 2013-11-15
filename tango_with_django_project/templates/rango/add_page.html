@@ -2,7 +2,8 @@
 
 {% block h1 %}Ajouter une page{% endblock %}
 {% block form %}
-  <form method="post" id="page-form" action="/rango/category/{{category_name_url}}/add_page/">
+  <form method="post" id="page-form" action="/rango/category/{{category_name_url}}/add_page/" class="form-inline" role="form">
+  <div class="jumbotron">    
     {% csrf_token %}
     {% for hidden in form.hidden_fields %}
       {{ hidden }}
@@ -14,6 +15,7 @@
       {{ field }}
       <br /><br />
     {% endfor %}
-    <input type="submit" name="submit" value="Créer une page." />
+    <input type="submit" name="submit" value="Créer une page." class="btn btn-sm btn-info" />
+    </div>
   </form>
 {% endblock %}
