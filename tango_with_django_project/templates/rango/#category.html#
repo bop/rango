@@ -1,0 +1,27 @@
+{% extends "rango/base.html" %}
+
+{% block title %}{{ category_name }}{% endblock %}
+
+{% block body_block %}
+  <div class="container">
+      <h1 class="well">{{ category_name }}</h1>
+      {% if category %}
+	{% if pages %}
+	  <ul class="lead list-group">
+	    <a href="#" class="list-group-item active">
+              &nbsp;&nbsp; Pages dans la catégorie {{ category_name }}: 
+            </a>
+	    {% for page in pages %}
+	      <li><a href="{{ page.url }}" target="_blank" class="list-group-item">{{ page.title }}</a> </li>
+	    {% endfor %}
+	  </ul>
+	{% else %}
+	    <em>Pas de page présente dans cette catégorie</em>
+	{% endif %}
+      {% else %}
+	La catégorie spécifiée {{ category_name }} n'existe pas.
+	{% endif %}
+    <br />
+    <a href="/rango/category/{{ category_name_url }}/add_page/">Add a Page</a>
+  </div>
+{% endblock %}

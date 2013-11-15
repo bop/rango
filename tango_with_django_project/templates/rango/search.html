@@ -1,0 +1,38 @@
+{% extends "rango/base.html" %}
+
+{% block title %}Search{% endblock %}
+
+{% block body_block %}
+<div class="container">
+    <h1 class="well">Rechercher avec Rango</h1>
+    <br/>
+
+    <div class="container-fluid">
+        <form class="form-inline" id="user_form" method="post" action="/rango/search/">
+            {% csrf_token %}
+            <!-- Display the search form elements here -->
+            <input type="text" size="50" name="query" value="" id="query" />
+            <input class="btn btn-primary btn-sm" type="submit" name="submit" value="Search" />
+            <br />
+        </form>
+
+        {% if result_list %}
+        <!-- Display search results in an ordered list -->
+        <div style="clear: both;">
+            <ol>
+	      <br />
+	    <a href="#" class="list-group-item active">
+              &nbsp;&nbsp; Résultats de la recherche {{ category_name }}: 
+            </a>
+            {% for result in result_list %}
+                <li class="list-group-item">
+                    <strong><a href="{{ result.link }}" target="_blank">{{ result.title }}</a></strong><br />
+                    <em>{{ result.summary }}</em>
+                </li>
+            {% endfor %}
+            </ol>
+        </div>
+        {% endif %}
+    </div>
+</div>
+{% endblock %}

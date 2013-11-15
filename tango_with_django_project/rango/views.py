@@ -9,6 +9,7 @@ from datetime import datetime
 
 from .models import Category, Page
 from .forms import CategoryForm, PageForm, UserForm, UserProfileForm
+from .bing_search import run_query
 
 
 @login_required
@@ -205,3 +206,17 @@ def user_login(request):
 def user_logout(request):
     logout(request)
     return HttpResponseRedirect('/rango/')
+
+
+
+def search(request):
+    context = RequestContext(request)
+    result_list = []
+
+    if request.method == 'POST':
+        query = request.POST['query'].strip()
+
+        if query:
+            result_list = run_query(query)
+
+    return render_to_response('rango/search.html', {'result_list': result_list}, context)
