@@ -7,9 +7,12 @@
       <h1 class="well">{{ category_name }}</h1>
       {% if category %}
 	{% if pages %}
-	  <ul class="lead">
+	  <ul class="lead list-group">
+	    <a href="#" class="list-group-item active">
+              &nbsp;&nbsp; Pages dans la catégorie {{ category_name }}: 
+            </a>
 	    {% for page in pages %}
-	      <li><a href="{{ page.url }}" target="_blank">{{ page.title }}</a> </li>
+	      <li><a href="{{ page.url }}" target="_blank" class="list-group-item">{{ page.title }}</a> </li>
 	    {% endfor %}
 	  </ul>
 	{% else %}
