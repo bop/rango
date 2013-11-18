@@ -62,7 +62,7 @@ def index(request):
 
 
 def about(request):
-    context = RequestContext(request)
+    context = RequestContext(request)    
     return render_to_response('rango/about.html', context)
 
 
@@ -220,3 +220,13 @@ def search(request):
             result_list = run_query(query)
 
     return render_to_response('rango/search.html', {'result_list': result_list}, context)
+
+
+
+def get_category_list():
+    cat_list = Category.objects.all()
+
+    for cat in cat_list:
+        cat.url = encode_url(cat.name)
+
+    return cat_list

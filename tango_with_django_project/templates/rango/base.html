@@ -8,6 +8,7 @@
 
     <link rel="stylesheet" href="http://code.jquery.com/ui/1.10.3/themes/smoothness/jquery-ui.css" />
     <link rel="stylesheet" href="{% static 'css/bootstrap.css' %}" />
+    <link rel="stylesheet" href="{% static 'css/docs.css' %}" />
     <link rel="stylesheet" href="{% static 'css/bootstrap-theme.css' %}" />
     <link rel="stylesheet" href="{% static 'css/bootstrap-fluid-adj.css' %}" />
 
@@ -28,33 +29,38 @@
 	  <div class="nav-collapse collapse">
 	    <ul class="nav pull-right">
 	      {% if user.is_authenticated %}
-                <li class="navbar-text">Welcome, {{ user.username }}!</li>
-		<li><a href="/rango/logout/">Logout</a></li>
+                <li class="navbar-text">Welcome, {{ user.username }}!</li><br />
+		<li class="nav"><a href="/rango/logout/">Logout</a></li>
+		<li class="nav"><a href="/admin" target="_blank">Admin</a> </li>
               {% else %}
-                <li><a href="/rango/register/">Register</a></li>
-		<li><a href="/rango/login/">Login</a></li>
+                <li class="nav"><a href="/rango/register/">Register</a></li>
+		<li class="nav"><a href="/rango/login/">Login</a></li>
               {% endif %}
 	    </ul>
-	    <ul class="nav">
+	    <ul class="nav pull-left">
 	      {% if user.is_authenticated %}
-                <li><a href="/rango/restricted/">Restricted</a></li>
-		<li><a href="/rango/add_category/">Add Category</a></li>
+                <li class="nav"><a href="/rango/restricted/">Restricted</a></li>
+		<li class="nav"><a href="/rango/add_category/">Add Category</a></li>
               {% endif %}
-	      <li><a href="/rango/about">About</a></li>
-	      <li><a href="/rango/search">Recherche</a></li>
+	      <li class="nav"><a href="/rango/about">About</a></li>
+	      <li class="nav active"><a href="/rango/search">Recherche</a></li>
 	    </ul>
 	  </div>
 	  <!--/.nav-collapse -->
-	  <li><a href="/admin" target="_blank">Admin</a> </li>
 	</div>
       </div>
     </div>
 
-	  
-	  <!-- Page specific content goes here -->
-	  {% block body_block %}{% endblock %}
-	</div>
-	<br />
+
+
+    
+    <!-- Page specific content goes here -->
+    <div class="row">
+      {% block body_block %}{% endblock %}
+      {% block categoric %}{% endblock %}
+    </div>
+    <br />
+
     <div id="rango">
       {% block home %}{% endblock %}
     </div>
@@ -74,6 +80,7 @@
 	<li><a href="/"> Retour Accueil</a></li>
       </ul>
     </div>
+
     <footer>
       <div class="container">
         <p>&copy; 2013 Django avec Xpertise.ch</p>

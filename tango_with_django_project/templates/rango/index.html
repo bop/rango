@@ -6,17 +6,10 @@
       <h1 class="well">Rango says . . . hello {{ user.username }}</h1>
     {% else %}
       <h1 class="well">Rango says ... </h1>
-    <p>hello world!</p> 
+      <p>hello world! You should <a href="/login">login </a>;-)</p> 
   {% endif %}
     <br />
-    {% if categories %}
-      <ul>
-	{% for category in categories %}
-	  <li><a href="/rango/category/{{ category.url }}">{{ category.name }}</a> {{ category.name }}</li>
-	{% endfor %}  
-      </ul>
-    {% else %}
-      <em>Pas de catégorie présente</em>
-    {% endif %}
+   {% include "rango/category_list.html" %}
+  </div>
 
 {% endblock %}
