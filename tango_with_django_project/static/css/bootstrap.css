@@ -270,6 +270,7 @@ table {
   }
   .navbar {
     display: none;
+    padding-bottom: 70px;    
   }
   .table td,
   .table th {
@@ -4044,6 +4045,7 @@ textarea.input-group-sm > .input-group-btn > .btn {
   padding-left: 0;
   margin-bottom: 0;
   list-style: none;
+  margin-bottom: 7px;
 }
 
 .nav:before,
@@ -4321,6 +4323,9 @@ textarea.input-group-sm > .input-group-btn > .btn {
   min-height: 50px;
   margin-bottom: 20px;
   border: 1px solid transparent;
+  padding-top:10px;
+  font-size: 115%;
+  font-weight: bold;
 }
 
 .navbar:before,

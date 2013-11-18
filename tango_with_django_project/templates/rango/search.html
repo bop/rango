@@ -13,13 +13,12 @@
             <!-- Display the search form elements here -->
             <input type="text" size="50" name="query" value="" id="query" />
             <input class="btn btn-primary btn-sm" type="submit" name="submit" value="Search" />
-            <br />
         </form>
-
+            <br />
         {% if result_list %}
         <!-- Display search results in an ordered list -->
-        <div style="clear: both;">
-            <ol>
+	<div class="panel panel-primary">
+            <ol class="list-group">
 	      <br />
 	    <a href="#" class="list-group-item active">
               &nbsp;&nbsp; Résultats de la recherche {{ category_name }}: 
@@ -31,7 +30,7 @@
                 </li>
             {% endfor %}
             </ol>
-        </div>
+	</div>
         {% endif %}
     </div>
 </div>
