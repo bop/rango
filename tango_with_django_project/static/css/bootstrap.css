@@ -7152,3 +7152,8 @@ td.visible-print {
     text-align: right;
     margin-left: 80%;
 }
+
+
+.cats {
+    list-style: none;
+}

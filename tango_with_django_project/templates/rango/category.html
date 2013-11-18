@@ -7,7 +7,7 @@
     <h1 class="well">{{ category_name }}</h1>
     {% if category %}
       {% if pages %}
-	<ul class="lead list-group">
+	<ul class="lead list-group cats">
 	  <a href="#" class="list-group-item active">
 	    &nbsp;&nbsp; Pages dans la catégorie {{ category_name }}: 
 	  </a>
@@ -22,7 +22,7 @@
       La catégorie spécifiée {{ category_name }} n'existe pas.
   {% endif %}
   <br />
-  <a href="/rango/category/{{ category_name_url }}/add_page/" class="right">Add a Page</a>
+  <a href="/rango/category/{{ category_name }}/add_page/" class="right">Add a Page</a>
 
   <p>
     <b id="like_count">{{ category.likes }}</b> personnes aiment cette catégorie

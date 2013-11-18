@@ -32,7 +32,7 @@ def get_category_list(max_results=0, starts_with=''):
         cat_list = Category.objects.all()
 
     if max_results > 0:
-        if (len(cat_list) > max_results):
+        if len(cat_list) > max_results:
             cat_list = cat_list[:max_results]
 
     for cat in cat_list:
@@ -271,3 +271,19 @@ def like_category(request):
             category.save()
 
     return HttpResponse(likes)
+
+
+
+
+def suggest_category(request):
+        context = RequestContext(request)
+        cat_list = []
+        starts_with = ''
+        if request.method == 'GET':
+                starts_with = request.GET['suggestion']
+        else:
+                starts_with = request.POST['suggestion']
+
+                cat_list = get_category_list(8, starts_with)
+
+        return render_to_response('rango/category_list.html', {'cat_list': cat_list }, context)
