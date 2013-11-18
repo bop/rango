@@ -7145,3 +7145,10 @@ td.visible-print {
   border-top-left-radius: 0;
   border-top-right-radius: 0;
 }
+
+
+
+.right {
+    text-align: right;
+    margin-left: 80%;
+}

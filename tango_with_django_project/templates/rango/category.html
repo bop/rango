@@ -4,24 +4,32 @@
 
 {% block categoric %}
   <div class="container">
-      <h1 class="well">{{ category_name }}</h1>
-      {% if category %}
-	{% if pages %}
-	  <ul class="lead list-group">
-	    <a href="#" class="list-group-item active">
-              &nbsp;&nbsp; Pages dans la catégorie {{ category_name }}: 
-            </a>
-	    {% for page in pages %}
-	      <li><a href="{{ page.url }}" target="_blank" class="list-group-item">{{ page.title }}</a> </li>
-	    {% endfor %}
-	  </ul>
-	{% else %}
-	    <em>Pas de page présente dans cette catégorie</em>
-	{% endif %}
+    <h1 class="well">{{ category_name }}</h1>
+    {% if category %}
+      {% if pages %}
+	<ul class="lead list-group">
+	  <a href="#" class="list-group-item active">
+	    &nbsp;&nbsp; Pages dans la catégorie {{ category_name }}: 
+	  </a>
+	  {% for page in pages %}
+	    <li><a href="{{ page.url }}" target="_blank" class="list-group-item">{{ page.title }}</a> </li>
+	  {% endfor %}
+	</ul>
       {% else %}
-	La catégorie spécifiée {{ category_name }} n'existe pas.
-	{% endif %}
-    <br />
-    <a href="/rango/category/{{ category_name_url }}/add_page/">Add a Page</a>
+	<em>Pas de page présente dans cette catégorie</em>
+      {% endif %}
+    {% else %}
+      La catégorie spécifiée {{ category_name }} n'existe pas.
+  {% endif %}
+  <br />
+  <a href="/rango/category/{{ category_name_url }}/add_page/" class="right">Add a Page</a>
+
+  <p>
+    <b id="like_count">{{ category.likes }}</b> personnes aiment cette catégorie
+    {% if user.is_authenticated %}
+      <button id="likes" data-catid="{{ category.id }}" class="btn btn-mimi btn-info" type="button">J'aime</button>
+      {% endif %}
+  </p>
   </div>
+
 {% endblock %}

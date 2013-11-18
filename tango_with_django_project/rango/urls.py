@@ -12,6 +12,7 @@ urlpatterns = patterns('',
                        url(r'^restricted/', views.restricted, name="restricted"),
                        url(r'^search/$', views.search, name='search'),
                        url(r'^logout/$', views.user_logout, name='logout'),
+                       url(r'^like_category/$', views.like_category, name='like_category'),
 
 
 )

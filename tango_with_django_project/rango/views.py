@@ -66,46 +66,68 @@ def about(request):
     return render_to_response('rango/about.html', context)
 
 
-def category(request, category_name_url):
+
+# def category(request, category_name_url):
     # Request our context
-    context = RequestContext(request)
+    #context = RequestContext(request)
 
     # Change underscores in the category name to spaces.
     # URL's don't handle spaces well, so we encode them as underscores.
-    category_name = decode_url(category_name_url)
+    #category_name = decode_url(category_name_url)
 
     # Build up the dictionary we will use as out template context dictionary.
-    context_dict = {'category_name': category_name, 'category_name_url': category_name_url}
+    #context_dict = {'category_name': category_name, 'category_name_url': category_name_url}
 
-    cat_list = get_category_list()
-    context_dict['cat_list'] = cat_list
+    #cat_list = get_category_list()
+    #context_dict['cat_list'] = cat_list
 
-    try:
+    #try:
         # Find the category with the given name.
         # Raises an exception if the category doesn't exist.
         # We also do a case insensitive match.
-        category = Category.objects.get(name__iexact=category_name)
-        context_dict['category'] = category
+        #category = Category.objects.get(name__iexact=category_name)
+        #context_dict['category'] = category
         # Retrieve all the associated pages.
         # Note that filter returns >= 1 model instance.
-        pages = Page.objects.filter(category=category).order_by('-views')
+        #pages = Page.objects.filter(category=category).order_by('-views')
 
         # Adds our results list to the template context under name pages.
-        context_dict['pages'] = pages
-    except Category.DoesNotExist:
+        #context_dict['pages'] = pages
+    #except Category.DoesNotExist:
         # We get here if the category does not exist.
         # Will trigger the template to display the 'no category' message.
-        pass
+        #pass
 
-    if request.method == 'POST':
-        query = request.POST.get('query')
-        if query:
-            query = query.strip()
-            result_list = run_query(query)
-            context_dict['result_list'] = result_list
+    #if request.method == 'POST':
+        #query = request.POST.get('query')
+        #if query:
+            #query = query.strip()
+            #result_list = run_query(query)
+            #context_dict['result_list'] = result_list
 
     # Go render the response and return it to the client.
+    #return render_to_response('rango/category.html', context_dict, context)
+
+def category(request, category_name_url):
+    context = RequestContext(request)
+    cat_list = get_category_list()
+    category_name = decode_url(category_name_url)
+    
+    context_dict = {'cat_list': cat_list, 'category_name': category_name}
+
+    try:
+        category = Category.objects.get(name=category_name)
+
+        # Add category to the context so that we can access the id and likes
+        context_dict['category'] = category
+
+        pages = Page.objects.filter(category=category)
+        context_dict['pages'] = pages
+    except Category.DoesNotExist:
+        pass
+
     return render_to_response('rango/category.html', context_dict, context)
+
 
 
 def add_category(request):
@@ -230,3 +252,22 @@ def get_category_list():
         cat.url = encode_url(cat.name)
 
     return cat_list
+
+
+
+@login_required
+def like_category(request):
+    context = RequestContext(request)
+    cat_id = None
+    if request.method == 'GET':
+        cat_id = request.GET['category_id']
+
+    likes = 0
+    if cat_id:
+        category = Category.objects.get(id=int(cat_id))
+        if category:
+            likes = category.likes + 1
+            category.likes = likes
+            category.save()
+
+    return HttpResponse(likes)
