@@ -7156,4 +7156,9 @@ td.visible-print {
 
 .cats {
     list-style: none;
+    color: #32CD32
+}
+
+#likes:hover {
+    color: #A62A2A;
 }

@@ -1,15 +1,23 @@
 {% extends 'rango/base.html' %}
 
 {% block home %}
-  <div class="container lead">
+  <div class="container">
     {% if user.is_authenticated %}
       <h1 class="well">Rango says . . . hello {{ user.username }}</h1>
     {% else %}
       <h1 class="well">Rango says ... </h1>
-      <p>hello world! You should <a href="/login">login </a>;-)</p> 
+      <p class="text-center lead">
+      Pour vous <a href="/login"><button type="button" class="btn btn-default btn-lg"><span class="glyphicon glyphicon-thumbs-up"></span> connectez !</button> </a>;-)</p> 
   {% endif %}
     <br />
-   {% include "rango/category_list.html" %}
+    <div class="lead panel panel-success">
+      <div class="panel-heading">
+      <h3 text-center class="panel-title">Catégories</h3>
+      </div>
+      <div class="panel-body">
+      {% include "rango/category_list.html" %}
+      </div>
+    </div>
   </div>
 
 {% endblock %}

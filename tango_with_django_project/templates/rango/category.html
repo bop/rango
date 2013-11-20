@@ -22,14 +22,13 @@
       La catégorie spécifiée {{ category_name }} n'existe pas.
   {% endif %}
   <br />
-  <a href="/rango/category/{{ category_name }}/add_page/" class="right">Add a Page</a>
-
-  <p>
-    <b id="like_count">{{ category.likes }}</b> personnes aiment cette catégorie
-    {% if user.is_authenticated %}
-      <button id="likes" data-catid="{{ category.id }}" class="btn btn-mimi btn-info" type="button">J'aime</button>
-      {% endif %}
-  </p>
+<a href="/rango/category/{{ category_name }}/add_page/"><button  class="btn-warning btn"><span class="glyphicon glyphicon-plus-sign"></span> Ajouter</button></a>                                                                  
+  Nouvelle page                                                                 
+  {% if user.is_authenticated %}                                                
+  <br />                                                                        
+  <br />                                                                        
+  <button id="likes" data-catid="{{ category.id }}" class="btn" type="button"><span class="glyphicon glyphicon-heart-empty"></span> J'aime</button>                                                
+  <b id="like_count">{{ category.likes }}</b> personnes aiment cette catégorie  
+  {% endif %}   
   </div>
-
 {% endblock %}
